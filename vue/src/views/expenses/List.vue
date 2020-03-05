@@ -3,16 +3,16 @@
     <h1 class="title is-2">Expenses</h1>
     <table class="table is-fullwidth">
       <thead>
-      <th>Category</th>
-      <th>Expense ($)</th>
-      <th></th>
+        <th>Category</th>
+        <th>Expense ($)</th>
+        <th></th>
       </thead>
       <tbody>
-      <tr v-for="e in allExpenses" :key="e.id">
-        <td>{{ categories[e.category] }}</td>
-        <td>{{ e.cost }} $</td>
-        <td><a @click="onDelete(e.id)">Delete</a></td>
-      </tr>
+        <tr v-for="e in allExpenses" :key="e.id">
+          <td>{{ categories[e.category] }}</td>
+          <td>{{ e.cost }} $</td>
+          <td><a @click="onDelete(e.id)">Delete</a></td>
+        </tr>
       </tbody>
     </table>
   </div>

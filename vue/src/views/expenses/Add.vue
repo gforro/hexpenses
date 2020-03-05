@@ -82,7 +82,7 @@ export default {
       this.deleteExpense(id).finally(() => NProgress.done())
     },
     ...mapActions('expenses', ['addExpense', 'deleteExpense'])
-  },
+  }
 }
 </script>
 

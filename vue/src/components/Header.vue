@@ -5,30 +5,39 @@
         <h1 class="title">Household Expenses</h1>
         <div class="navbar-menu is-active">
           <div class="navbar-start">
-          <router-link :to="{name: 'expenses_add'}" class="has-text-white navbar-item">Add New Expense</router-link>
-          <router-link :to="{name: 'expenses_list'}" class="has-text-white navbar-item">Show Expenses</router-link>
+            <router-link
+              :to="{ name: 'expenses_add' }"
+              class="has-text-white navbar-item"
+              >Add New Expense</router-link
+            >
+            <router-link
+              :to="{ name: 'expenses_list' }"
+              class="has-text-white navbar-item"
+              >Show Expenses</router-link
+            >
           </div>
-          <div class="navbar-end"><a class="has-text-white" @click="doLogout">Logout</a></div>
+          <div class="navbar-end">
+            <a class="has-text-white" @click="doLogout">Logout</a>
+          </div>
         </div>
-
       </div>
     </div>
   </header>
 </template>
 
 <script>
-  import {mapGetters, mapActions} from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: "Header",
+  name: 'Header',
   computed: {
     ...mapGetters('user', ['userName'])
   },
   methods: {
     doLogout() {
       this.logout()
-      this.$router.push({name: 'landing'})
+      this.$router.push({ name: 'landing' })
     },
     ...mapActions('user', ['logout'])
   }
-};
+}
 </script>

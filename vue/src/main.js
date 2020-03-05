@@ -18,9 +18,10 @@ new Vue({
         console.log(error)
         console.log(error.response)
         console.log(error.response.status)
-        if (error.response.status === 401) { // if we catch a 401 error => session expired for example
+        if (error.response.status === 401) {
+          // if we catch a 401 error => session expired for example
           this.$store.dispatch('user/logout') // force a log out
-          this.$router.push({name: 'landing'})
+          this.$router.push({ name: 'landing' })
         }
         return Promise.reject(error) // reject the Promise, with the error as the reason
       }
@@ -31,7 +32,6 @@ new Vue({
       console.log(JSON.parse(userData))
       store.commit('user/SET_USER', JSON.parse(userData))
     }
-
   },
   render: h => h(App)
 }).$mount('#app')

@@ -4,7 +4,6 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-6-desktop">
-
             <form class="box" @submit.prevent="doLogin">
               <my-field
                 label="Email"
@@ -17,7 +16,11 @@
                 <div class="is-pulled-right">
                   <my-field-button text="Login"></my-field-button>
                 </div>
-                <span v-if="loginFailed" class="has-text-danger has-text-centered is-pulled-left">Login failed. Try again.</span>
+                <span
+                  v-if="loginFailed"
+                  class="has-text-danger has-text-centered is-pulled-left"
+                  >Login failed. Try again.</span
+                >
               </div>
             </form>
           </div>
