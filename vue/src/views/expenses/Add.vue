@@ -13,8 +13,9 @@
           <my-field
             label="Sum"
             type="number"
+            step="0.01"
             required
-            v-model="cost"
+            v-model.number="cost"
           ></my-field>
           <my-field-button text="Add"></my-field-button>
         </form>

@@ -1,5 +1,19 @@
 import axios from '../utils/axios'
 
+/**
+ * Data structure:
+ * Category exmaple:
+ *   {
+ *     hobby: 'Hobby',
+ *     grocery: 'Grocery'
+ *   }
+ * Expense example:
+ *   {
+ *     id: '134444',
+ *     category: 'grocery',
+ *     cost: 1111
+ *   }
+ */
 export default {
   namespaced: true,
   state: {
@@ -13,7 +27,23 @@ export default {
       return state.expenses.slice(from, length).reverse()
     },
     allExpenses: state => state.expenses,
-    categories: state => state.categories
+    categories: state => state.categories,
+    sumsByCategory: state => {
+      const expensesByCategory = Object.keys(state.categories).reduce(
+        (sums, catKey) => {
+          sums[catKey] = {
+            text: state.categories[catKey],
+            expenses: 0
+          }
+          return sums
+        },
+        {}
+      )
+      return state.expenses.reduce((sums, e) => {
+        sums[e.category].expenses += e.cost
+        return sums
+      }, expensesByCategory)
+    }
   },
   mutations: {
     SET_EXPENSES(state, expenses) {

@@ -13,6 +13,13 @@
 
 <script>
 export default {
-  name: 'Landing'
+  name: 'Landing',
+  created() {
+    console.log('landing created')
+    console.log(this.$store.getters['user/isAuthenticated'])
+    if (this.$store.getters['user/isAuthenticated']) {
+      this.$router.replace({ name: 'expenses_list' })
+    }
+  }
 }
 </script>

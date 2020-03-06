@@ -8,30 +8,36 @@ import axios from './utils/axios'
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  created() {
-    axios.interceptors.response.use(
-      response => response, // simply return the response if OK
-      error => {
-        console.log(error)
-        console.log(error.response)
-        console.log(error.response.status)
-        if (error.response.status === 401) {
-          // if we catch a 401 error => session expired for example
-          this.$store.dispatch('user/logout') // force a log out
-          this.$router.push({ name: 'landing' })
-        }
-        return Promise.reject(error) // reject the Promise, with the error as the reason
+async function startUp() {
+  axios.interceptors.response.use(
+    response => response, // simply return the response if OK
+    error => {
+      console.log(error)
+      console.log(error.response)
+      console.log(error.response.status)
+      if (error.response.status === 401) {
+        // if we catch a 401 error => session expired for example
+        this.$store.dispatch('user/logout') // force a log out
+        this.$router.push({ name: 'landing' })
       }
-    )
-    const userData = localStorage.getItem('user')
-    if (userData) {
-      console.log(userData)
-      console.log(JSON.parse(userData))
-      store.commit('user/SET_USER', JSON.parse(userData))
+      return Promise.reject(error) // reject the Promise, with the error as the reason
     }
-  },
-  render: h => h(App)
-}).$mount('#app')
+  )
+  const userData = localStorage.getItem('user')
+  if (userData) {
+    console.log(userData)
+    console.log(JSON.parse(userData))
+    store.commit('user/SET_USER', JSON.parse(userData))
+    console.log('user data commited')
+    await store.dispatch('user/scheduleRefreshToken')
+    console.log('schedule dispatched')
+  }
+}
+
+startUp().then(() => {
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+})

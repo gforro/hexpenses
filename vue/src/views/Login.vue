@@ -46,6 +46,11 @@ export default {
       loginFailed: false
     }
   },
+  created() {
+    if (this.$store.getters['user/isAuthenticated']) {
+      this.$router.replace({ name: 'expenses_list' })
+    }
+  },
   methods: {
     doLogin() {
       this.loginFailed = false
